@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TeleTransit — transport connections across Tanzania</title>
+<meta name="description" content="TeleTransit connects people who need goods moved with transport providers who have vehicle space, across Tanzania. Free to post. English and Kiswahili.">
+<meta name="theme-color" content="#141f30">
+<meta property="og:title" content="TeleTransit — transport connections across Tanzania">
+<meta property="og:description" content="Find vehicle space or customers for your truck, anywhere in Tanzania.">
+<meta property="og:image" content="img/logo.png">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #de6e1a;
+    --orange-deep: #b8560f;
+    --orange-light: #f2934d;
+    --gold: #e8ac4e;
+    --navy: #203450;
+    --navy-deep: #141f30;
+    --navy-light: #34506f;
+    --cream: #f4f7fb;
+    --mist: #e6edf6;
+    --ink: #16232f;
+    --muted: #55606e;
+    --success: #2fae6e;
+    --line: rgba(32, 52, 80, 0.12);
+    --radius: 22px;
+    --display: "Baloo 2", "Trebuchet MS", sans-serif;
+    --body: "Figtree", "Segoe UI", Helvetica, Arial, sans-serif;
+    --wrap: 1160px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 17px/1.6 var(--body);
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap { width: min(var(--wrap), 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.02; margin: 0; letter-spacing: -0.01em; }
+
+  /* ───────────── Header ───────────── */
+  .top {
+    position: absolute; inset: 0 0 auto; z-index: 10;
+    padding-block: 18px;
+  }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; font-family: var(--display); font-weight: 800; font-size: 1.45rem; }
+  .brand img { width: 46px; height: auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,.3)); }
+  .brand span b { color: var(--orange-light); font-weight: 800; }
+  .lang {
+    display: inline-flex; padding: 4px; gap: 2px;
+    border-radius: 999px; background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(8px);
+  }
+  .lang button {
+    border: 0; background: transparent; color: rgba(255,255,255,.8);
+    font: 700 .85rem var(--body); letter-spacing: .04em;
+    padding: 7px 14px; border-radius: 999px; cursor: pointer; min-height: 36px;
+  }
+  .lang button[aria-pressed="true"] { background: var(--orange); color: #fff; }
+
+  /* ───────────── Hero ───────────── */
+  .hero {
+    position: relative; color: #fff; isolation: isolate;
+    background: var(--navy-deep);
+    padding: 130px 0 120px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -2;
+    background: url("img/road.jpg") center 60% / cover no-repeat;
+    opacity: .55;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(70% 60% at 85% 20%, rgba(222,110,26,.28), transparent 60%),
+      linear-gradient(100deg, rgba(20,31,48,.97) 0%, rgba(20,31,48,.88) 42%, rgba(20,31,48,.55) 100%),
+      linear-gradient(0deg, rgba(20,31,48,1) 0%, transparent 35%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 700 .78rem var(--body); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 22px;
+  }
+  .chip::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+
+  .hero h1 { font-size: clamp(2.7rem, 6.4vw, 5.2rem); font-weight: 800; }
+  .hero h1 em { font-style: normal; color: var(--orange-light); }
+  .hero .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: rgba(255,255,255,.82); max-width: 34em; margin: 24px 0 34px; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 24px; border-radius: 16px; min-height: 56px;
+    font: 700 1rem var(--body); text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-play { background: var(--orange); color: #fff; box-shadow: 0 10px 30px -8px rgba(222,110,26,.7); }
+  .btn-play:hover { background: var(--orange-deep); }
+  .btn-play svg { width: 26px; height: 26px; flex: none; }
+  .btn-play small { display: block; font-weight: 500; font-size: .72rem; opacity: .85; line-height: 1.1; }
+  .btn-play strong { display: block; font-size: 1.1rem; line-height: 1.15; }
+  .btn-ghost { color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
+  .btn-ghost:hover { border-color: #fff; }
+
+  .hero-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 40px; padding: 0; list-style: none; color: rgba(255,255,255,.75); font-size: .95rem; }
+  .hero-facts li { display: flex; align-items: center; gap: 8px; }
+  .hero-facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(47,174,110,.2); }
+
+  /* Phone mock-up */
+  .phone {
+    position: relative; justify-self: center;
+    width: min(330px, 100%); aspect-ratio: 9 / 18.5;
+    border-radius: 44px; padding: 12px;
+    background: linear-gradient(160deg, #2b3d56, #0d1522);
+    box-shadow: 0 50px 90px -30px rgba(0,0,0,.8), inset 0 0 0 1.5px rgba(255,255,255,.12);
+    transform: rotate(3deg);
+  }
+  .screen {
+    height: 100%; border-radius: 34px; overflow: hidden;
+    background: linear-gradient(180deg, #1a2b40 0%, #141f30 100%);
+    padding: 34px 16px 16px; display: flex; flex-direction: column; gap: 12px;
+    font-size: .8rem;
+  }
+  .screen-head { display: flex; justify-content: space-between; align-items: center; color: #fff; }
+  .screen-head h4 { margin: 0; font: 800 1.15rem var(--display); }
+  .screen-head img { width: 34px; }
+  .search { background: rgba(255,255,255,.08); border-radius: 12px; padding: 10px 12px; color: rgba(255,255,255,.55); display: flex; gap: 8px; align-items: center; }
+  .search::before { content: "⌕"; font-size: 1rem; color: var(--orange-light); }
+  .card {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.09);
+    border-radius: 16px; padding: 12px; color: #fff;
+  }
+  .card.hot { background: #fff; color: var(--ink); border: 0; }
+  .route { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; }
+  .route i { flex: 1; height: 2px; background: repeating-linear-gradient(90deg, var(--orange) 0 6px, transparent 6px 10px); }
+  .meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .meta span { font-size: .68rem; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: rgba(222,110,26,.14); color: var(--orange-deep); }
+  .card:not(.hot) .meta span { background: rgba(255,255,255,.1); color: rgba(255,255,255,.8); }
+  .card .act { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .card .act b { background: var(--orange); color: #fff; padding: 6px 12px; border-radius: 10px; font-size: .72rem; }
+  .card .act small { color: var(--muted); font-size: .68rem; }
+  .verified { color: var(--success); font-weight: 700; font-size: .68rem; }
+  .float-note {
+    position: absolute; left: -46px; bottom: 70px;
+    background: #fff; color: var(--ink); border-radius: 16px; padding: 12px 14px;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,.5); font-size: .8rem; font-weight: 600;
+    display: flex; gap: 10px; align-items: center; transform: rotate(-3deg); max-width: 220px; line-height: 1.3;
+  }
+  .float-note::before { content: "✓"; display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--success); color: #fff; font-weight: 800; }
+
+  /* ───────────── Departure board ───────────── */
+  .board { background: var(--navy-deep); color: var(--gold); border-block: 1px solid rgba(255,255,255,.06); overflow: hidden; }
+  .board-track { display: flex; width: max-content; animation: roll 60s linear infinite; }
+  .board-track ul { display: flex; margin: 0; padding: 0; list-style: none; }
+  .board li {
+    display: flex; align-items: center; gap: 14px; padding: 16px 26px;
+    font: 700 .95rem ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
+  }
+  .board li::after { content: "→"; color: var(--orange); }
+  @keyframes roll { to { transform: translateX(-50%); } }
+
+  /* ───────────── Sections ───────────── */
+  section { padding: clamp(72px, 10vw, 120px) 0; }
+  .eyebrow { font: 700 .78rem var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--orange-deep); margin: 0 0 14px; }
+  .section-title { font-size: clamp(2rem, 4.4vw, 3.3rem); color: var(--navy); max-width: 16em; }
+  .section-lead { color: var(--muted); font-size: 1.1rem; max-width: 40em; margin: 18px 0 0; }
+
+  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+  .side {
+    border-radius: var(--radius); padding: clamp(28px, 4vw, 44px);
+    background: #fff; border: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  .side.dark { background: var(--navy); color: #fff; border: 0; }
+  .side .tag {
+    display: inline-block; font: 700 .75rem var(--body); letter-spacing: .1em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px; background: var(--mist); color: var(--navy); margin-bottom: 18px;
+  }
+  .side.dark .tag { background: rgba(255,255,255,.1); color: var(--gold); }
+  .side h3 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-bottom: 26px; }
+  .side ol { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 20px; }
+  .side li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+  .side li::before {
+    content: counter(s, decimal-leading-zero);
+    font: 800 1.05rem var(--display); color: var(--orange);
+    width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+    background: rgba(222,110,26,.1);
+  }
+  .side.dark li::before { background: rgba(222,110,26,.18); color: var(--orange-light); }
+  .side li b { display: block; font-size: 1.05rem; }
+  .side li span { color: var(--muted); font-size: .97rem; }
+  .side.dark li span { color: rgba(255,255,255,.7); }
+  .side .price-note { margin-top: 28px; padding-top: 22px; border-top: 1px dashed rgba(255,255,255,.2); font-size: .95rem; color: rgba(255,255,255,.85); }
+  .side .price-note strong { color: var(--gold); }
+  .side:not(.dark) .price-note { border-color: var(--line); color: var(--muted); }
+  .side:not(.dark) .price-note strong { color: var(--success); }
+
+  /* Trust */
+  .trust { background: #fff; border-block: 1px solid var(--line); }
+  .trust-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+  .handshake {
+    position: relative; border-radius: var(--radius); padding: 34px;
+    background: var(--mist); display: grid; gap: 14px;
+  }
+  .party { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 24px -14px rgba(32,52,80,.4); }
+  .party .av { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font: 800 1rem var(--display); color: #fff; flex: none; }
+  .party .av.s { background: var(--navy-light); }
+  .party .av.p { background: var(--orange); }
+  .party b { display: block; font-size: .95rem; }
+  .party small { color: var(--muted); }
+  .party .ok { margin-left: auto; color: var(--success); font-weight: 700; font-size: .85rem; white-space: nowrap; }
+  .reveal { text-align: center; font: 800 1.05rem var(--display); color: var(--navy); padding: 6px 0; }
+  .reveal span { display: inline-block; background: var(--navy); color: #fff; padding: 8px 16px; border-radius: 12px; letter-spacing: .06em; }
+
+  .points { display: grid; gap: 26px; margin-top: 36px; }
+  .point { display: grid; grid-template-columns: 48px 1fr; gap: 16px; }
+  .point .ic { width: 48px; height: 48px; border-radius: 14px; background: rgba(222,110,26,.1); display: grid; place-items: center; }
+  .point .ic svg { width: 24px; height: 24px; stroke: var(--orange-deep); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .point b { display: block; color: var(--navy); font-size: 1.08rem; }
+  .point span { color: var(--muted); }
+
+  /* Boundary */
+  .boundary { padding: 0; }
+  .boundary .box {
+    margin-block: clamp(72px, 10vw, 110px);
+    border-radius: var(--radius); padding: clamp(28px, 5vw, 56px);
+    border: 2px dashed rgba(32,52,80,.22);
+    display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center;
+  }
+  .boundary .stamp {
+    width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--orange);
+    display: grid; place-items: center; text-align: center; color: var(--orange-deep);
+    font: 800 .82rem/1.1 var(--display); letter-spacing: .06em; text-transform: uppercase;
+    transform: rotate(-10deg); padding: 10px;
+  }
+  .boundary h3 { font-size: clamp(1.5rem, 2.8vw, 2.1rem); color: var(--navy); margin-bottom: 10px; }
+  .boundary p { margin: 0; color: var(--muted); }
+
+  /* Final CTA */
+  .final { background: var(--orange); color: #fff; position: relative; overflow: hidden; }
+  .final::before {
+    content: ""; position: absolute; right: -60px; bottom: -80px; width: 520px; height: 520px;
+    background: url("img/mark.png") center / contain no-repeat;
+    filter: brightness(0) invert(1); opacity: .1;
+  }
+  .final .wrap { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .final h2 { font-size: clamp(2.1rem, 5vw, 3.8rem); max-width: 12em; }
+  .final p { margin: 14px 0 0; font-size: 1.1rem; opacity: .9; }
+  .final .btn-play { background: var(--navy-deep); box-shadow: 0 14px 34px -10px rgba(20,31,48,.6); }
+  .final .btn-play:hover { background: #000; }
+
+  footer { background: var(--navy-deep); color: rgba(255,255,255,.7); padding: 48px 0; font-size: .95rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; }
+  footer .brand { font-size: 1.2rem; }
+  footer .brand img { width: 38px; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: #fff; text-decoration: underline; }
+
+  /* ───────────── Motion ───────────── */
+  .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .d1 { animation-delay: .08s; } .d2 { animation-delay: .18s; } .d3 { animation-delay: .3s; } .d4 { animation-delay: .42s; } .d5 { animation-delay: .6s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } }
+  .phone.rise { animation-name: rise-phone; }
+  @keyframes rise-phone { from { opacity: 0; transform: translateY(40px) rotate(8deg); } }
+  .js .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal-on-scroll.seen { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .reveal-on-scroll { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ───────────── Responsive ───────────── */
+  @media (max-width: 900px) {
+    .hero { padding: 110px 0 80px; }
+    .hero-grid, .trust-grid { grid-template-columns: 1fr; }
+    .phone { width: min(290px, 80%); margin-top: 20px; }
+    .float-note { left: -24px; }
+    .sides { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .brand span { display: none; }
+    .boundary .box { grid-template-columns: 1fr; justify-items: start; }
+    .boundary .stamp { width: 92px; height: 92px; font-size: .7rem; }
+    .float-note { left: -10px; bottom: 40px; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/mark.png" alt=""><span>Tele<b>Transit</b></span></a>
+    <div class="lang" role="group" aria-label="Language / Lugha">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="sw" aria-pressed="false">SW</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="chip rise d1" data-en="Across Tanzania" data-sw="Tanzania nzima">Across Tanzania</p>
+        <h1 class="rise d2" data-en="Move goods with <em>confidence.</em> Connect directly." data-sw="Safirisha mizigo kwa <em>uhakika.</em> Unganishwa moja kwa moja.">Move goods with <em>confidence.</em> Connect directly.</h1>
+        <p class="lead rise d3" data-en="TeleTransit connects people who need goods moved with transport providers who have space in their vehicles. Post what you need, find a match, and agree the price directly."
+           data-sw="TeleTransit inawaunganisha wanaohitaji kusafirisha mizigo na watoa huduma za usafiri wenye nafasi kwenye magari yao. Weka hitaji lako, pata anayefaa, kisha mkubaliane bei moja kwa moja.">TeleTransit connects people who need goods moved with transport providers who have space in their vehicles. Post what you need, find a match, and agree the price directly.</p>
+        <div class="cta-row rise d4">
+          <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=tz.co.smarttransit.smart_transit" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l.1.1 9.2-9.2v-.6L4.3 2.5l-.1.1Zm12.4 12.8-3.1-3.1v-.6l3.1-3.1.1.1 3.6 2.1c1 .6 1 1.6 0 2.2l-3.6 2.1-.1.3Zm-.1.1L13.4 12l-9.2 9.4c.4.4 1 .4 1.6.1l10.7-6.1m0-6.8L5.8 2.5c-.6-.4-1.2-.3-1.6.1L13.4 12l3.1-3.1Z"/></svg>
+            <span><small data-en="Get it on" data-sw="Pakua kwenye">Get it on</small><strong>Google Play</strong></span>
+          </a>
+          <a class="btn btn-ghost" href="#how" data-en="How it works" data-sw="Inavyofanya kazi">How it works</a>
+        </div>
+        <ul class="hero-facts rise d5">
+          <li data-en="Free to post" data-sw="Kutangaza ni bure">Free to post</li>
+          <li data-en="Numbers private until both accept" data-sw="Namba ni siri hadi wote wakubali">Numbers private until both accept</li>
+          <li data-en="English &amp; Kiswahili" data-sw="Kiingereza na Kiswahili">English &amp; Kiswahili</li>
+        </ul>
+      </div>
+
+      <div class="phone rise d3" role="img" aria-label="Illustration of the TeleTransit app showing available vehicle space between Tanzanian towns" data-en-label="Illustration of the TeleTransit app showing available vehicle space between Tanzanian towns" data-sw-label="Mfano wa programu ya TeleTransit ikionyesha nafasi za magari kati ya miji ya Tanzania">
+        <div class="screen" aria-hidden="true">
+          <div class="screen-head"><h4 data-en="Space available" data-sw="Nafasi zilizopo">Space available</h4><img src="img/mark.png" alt=""></div>
+          <div class="search" data-en="Where are you sending?" data-sw="Unasafirisha wapi?">Where are you sending?</div>
+          <div class="card hot">
+            <div class="route">Dar es Salaam <i></i> Mwanza</div>
+            <div class="meta"><span data-en="Truck · 10 t" data-sw="Lori · tani 10">Truck · 10 t</span><span data-en="Leaves Fri" data-sw="Inaondoka Ijumaa">Leaves Fri</span></div>
+            <div class="act"><span class="verified" data-en="✓ Verified" data-sw="✓ Imethibitishwa">✓ Verified</span><b data-en="Request" data-sw="Omba">Request</b></div>
+          </div>
+          <div class="card">
+            <div class="route">Arusha <i></i> Dodoma</div>
+            <div class="meta"><span data-en="Pickup · 2 t" data-sw="Pikapu · tani 2">Pickup · 2 t</span><span data-en="Nearby stops OK" data-sw="Vituo vya karibu sawa">Nearby stops OK</span></div>
+          </div>
+          <div class="card">
+            <div class="route">Mbeya <i></i> Morogoro</div>
+            <div class="meta"><span data-en="Canter · 4 t" data-sw="Kenta · tani 4">Canter · 4 t</span><span data-en="Leaves Mon" data-sw="Inaondoka Jumatatu">Leaves Mon</span></div>
+          </div>
+        </div>
+        <div class="float-note" aria-hidden="true" data-en="Both accepted — numbers shared" data-sw="Wote wamekubali — namba zimetolewa">Both accepted — numbers shared</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="board" aria-hidden="true">
+    <div class="board-track">
+      <ul><li>Dar es Salaam</li><li>Arusha</li><li>Mwanza</li><li>Dodoma</li><li>Mbeya</li><li>Tanga</li><li>Morogoro</li><li>Moshi</li><li>Iringa</li><li>Kigoma</li><li>Tabora</li><li>Mtwara</li><li>Songea</li><li>Shinyanga</li></ul>
+      <ul><li>Dar es Salaam</li><li>Arusha</li><li>Mwanza</li><li>Dodoma</li><li>Mbeya</li><li>Tanga</li><li>Morogoro</li><li>Moshi</li><li>Iringa</li><li>Kigoma</li><li>Tabora</li><li>Mtwara</li><li>Songea</li><li>Shinyanga</li></ul>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="eyebrow" data-en="How it works" data-sw="Inavyofanya kazi">How it works</p>
+      <h2 class="section-title" data-en="One app for both sides of the road." data-sw="Programu moja kwa pande zote mbili za barabara.">One app for both sides of the road.</h2>
+      <p class="section-lead" data-en="Whether you have goods to move or a vehicle with space to fill, TeleTransit puts you in touch with the right people, from the big cities to the smaller towns."
+         data-sw="Uwe na mzigo wa kusafirisha au gari lenye nafasi ya kujaza, TeleTransit inakukutanisha na watu sahihi, kuanzia miji mikubwa hadi miji midogo.">Whether you have goods to move or a vehicle with space to fill, TeleTransit puts you in touch with the right people, from the big cities to the smaller towns.</p>
+
+      <div class="sides">
+        <article class="side reveal-on-scroll">
+          <span class="tag" data-en="Senders" data-sw="Watumaji">Senders</span>
+          <h3 data-en="I have goods to move" data-sw="Nina mzigo wa kusafirisha">I have goods to move</h3>
+          <ol>
+            <li><div><b data-en="Post your transport need" data-sw="Tangaza hitaji la usafiri">Post your transport need</b><span data-en="Cargo type, size, pickup and delivery points, and your dates." data-sw="Aina ya mzigo, ukubwa, mahali pa kuchukua na kufikisha, na tarehe zako.">Cargo type, size, pickup and delivery points, and your dates.</span></div></li>
+            <li><div><b data-en="Compare vehicles and routes" data-sw="Linganisha magari na njia">Compare vehicles and routes</b><span data-en="See who is going your way, with what capacity and when. Keep a fixed route or allow nearby stops." data-sw="Ona nani anaelekea upande wako, ana nafasi kiasi gani na lini. Shikilia njia moja au ruhusu vituo vya karibu.">See who is going your way, with what capacity and when. Keep a fixed route or allow nearby stops.</span></div></li>
+            <li><div><b data-en="Request a connection" data-sw="Omba muunganisho">Request a connection</b><span data-en="When the provider accepts, you get each other's numbers and agree the details." data-sw="Mtoa huduma akikubali, mnapata namba za kila mmoja na kukubaliana mambo yote.">When the provider accepts, you get each other's numbers and agree the details.</span></div></li>
+          </ol>
+          <p class="price-note" data-en="<strong>Free for senders.</strong> Posting a need costs nothing." data-sw="<strong>Bure kwa watumaji.</strong> Kutangaza hitaji hakulipiwi.">
+            <strong>Free for senders.</strong> Posting a need costs nothing.</p>
+        </article>
+
+        <article class="side dark reveal-on-scroll">
+          <span class="tag" data-en="Transport providers" data-sw="Watoa huduma za usafiri">Transport providers</span>
+          <h3 data-en="I have space in my vehicle" data-sw="Nina nafasi kwenye gari langu">I have space in my vehicle</h3>
+          <ol>
+            <li><div><b data-en="List your vehicle and route" data-sw="Tangaza gari na njia yako">List your vehicle and route</b><span data-en="Where you're going, when, and how much space you have." data-sw="Unaenda wapi, lini, na una nafasi kiasi gani.">Where you're going, when, and how much space you have.</span></div></li>
+            <li><div><b data-en="Find customers across Tanzania" data-sw="Pata wateja Tanzania nzima">Find customers across Tanzania</b><span data-en="Browse senders' needs and fill the empty space on trips you're already making." data-sw="Pitia mahitaji ya watumaji na ujaze nafasi tupu kwenye safari unazofanya tayari.">Browse senders' needs and fill the empty space on trips you're already making.</span></div></li>
+            <li><div><b data-en="Connect and agree the price" data-sw="Unganishwa na mkubaliane bei">Connect and agree the price</b><span data-en="Open a customer's number and deal directly. No middleman takes a cut of your fare." data-sw="Fungua namba ya mteja na mzungumze moja kwa moja. Hakuna dalali anayekata nauli yako.">Open a customer's number and deal directly. No middleman takes a cut of your fare.</span></div></li>
+          </ol>
+          <p class="price-note" data-en="<strong>Start with a 7-day free trial.</strong> After that, packages start from TZS 1,000, paid with mobile money or card."
+             data-sw="<strong>Anza na jaribio la bure la siku 7.</strong> Baada ya hapo, vifurushi vinaanzia TZS 1,000, ukilipa kwa pesa za simu au kadi."><strong>Start with a 7-day free trial.</strong> After that, packages start from TZS 1,000, paid with mobile money or card.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust">
+    <div class="wrap trust-grid">
+      <div class="handshake reveal-on-scroll" aria-hidden="true">
+        <div class="party"><div class="av s">A</div><div><b data-en="Sender" data-sw="Mtumaji">Sender</b><small data-en="Requested a connection" data-sw="Ameomba muunganisho">Requested a connection</small></div><span class="ok" data-en="✓ Accepted" data-sw="✓ Amekubali">✓ Accepted</span></div>
+        <div class="party"><div class="av p">J</div><div><b data-en="Truck owner" data-sw="Mwenye lori">Truck owner</b><small data-en="Dar es Salaam → Mwanza" data-sw="Dar es Salaam → Mwanza">Dar es Salaam → Mwanza</small></div><span class="ok" data-en="✓ Accepted" data-sw="✓ Amekubali">✓ Accepted</span></div>
+        <div class="reveal"><span data-en="Now you can call each other" data-sw="Sasa mnaweza kupigiana">Now you can call each other</span></div>
+      </div>
+      <div>
+        <p class="eyebrow" data-en="Built for trust" data-sw="Imejengwa kwa uaminifu">Built for trust</p>
+        <h2 class="section-title" data-en="Your number stays private until you say yes." data-sw="Namba yako ni siri hadi useme ndiyo.">Your number stays private until you say yes.</h2>
+        <div class="points">
+          <div class="point reveal-on-scroll">
+            <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+            <div><b data-en="Shared only after both sides accept" data-sw="Hutolewa baada ya pande zote kukubali">Shared only after both sides accept</b><span data-en="Nobody gets your phone number just by looking at your post." data-sw="Hakuna anayepata namba yako kwa kuangalia tangazo lako tu.">Nobody gets your phone number just by looking at your post.</span></div>
+          </div>
+          <div class="point reveal-on-scroll">
+            <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <div><b data-en="Checked listings" data-sw="Matangazo yanayokaguliwa">Checked listings</b><span data-en="Providers are reviewed, and you can see who is verified before you connect." data-sw="Watoa huduma hukaguliwa, na unaona aliyethibitishwa kabla ya kuunganishwa.">Providers are reviewed, and you can see who is verified before you connect.</span></div>
+          </div>
+          <div class="point reveal-on-scroll">
+            <div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div>
+            <div><b data-en="Pay the way you already pay" data-sw="Lipa kwa njia unayoizoea">Pay the way you already pay</b><span data-en="Packages are paid with mobile money or card, in Tanzanian shillings." data-sw="Vifurushi hulipiwa kwa pesa za simu au kadi, kwa shilingi za Kitanzania.">Packages are paid with mobile money or card, in Tanzanian shillings.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="boundary">
+    <div class="wrap">
+      <div class="box reveal-on-scroll">
+        <div class="stamp" data-en="Connect, not carry" data-sw="Tunaunganisha tu">Connect, not carry</div>
+        <div>
+          <h3 data-en="We connect you. We don't deliver." data-sw="Tunawaunganisha. Hatusafirishi mizigo.">We connect you. We don't deliver.</h3>
+          <p data-en="You and the provider agree the transport price and payment directly. TeleTransit does not transport goods, hold transport money, insure cargo or guarantee delivery."
+             data-sw="Wewe na mtoa huduma mnakubaliana bei na malipo ya usafiri moja kwa moja. TeleTransit haisafirishi mizigo, haishikilii fedha za usafiri, haikatii mizigo bima wala haihakikishi uwasilishaji.">You and the provider agree the transport price and payment directly. TeleTransit does not transport goods, hold transport money, insure cargo or guarantee delivery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="final">
+    <div class="wrap">
+      <div>
+        <h2 data-en="Your next load is already on the road." data-sw="Mzigo wako unaofuata uko njiani tayari.">Your next load is already on the road.</h2>
+        <p data-en="Download TeleTransit free on Android." data-sw="Pakua TeleTransit bure kwenye Android.">Download TeleTransit free on Android.</p>
+      </div>
+      <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=tz.co.smarttransit.smart_transit" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l.1.1 9.2-9.2v-.6L4.3 2.5l-.1.1Zm12.4 12.8-3.1-3.1v-.6l3.1-3.1.1.1 3.6 2.1c1 .6 1 1.6 0 2.2l-3.6 2.1-.1.3Zm-.1.1L13.4 12l-9.2 9.4c.4.4 1 .4 1.6.1l10.7-6.1m0-6.8L5.8 2.5c-.6-.4-1.2-.3-1.6.1L13.4 12l3.1-3.1Z"/></svg>
+        <span><small data-en="Get it on" data-sw="Pakua kwenye">Get it on</small><strong>Google Play</strong></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/mark.png" alt=""><span>Tele<b>Transit</b></span></a>
+    <nav>
+      <a href="https://fpavhievwedzyqbfooic.supabase.co/functions/v1/privacy-policy" rel="noopener" data-en="Privacy policy" data-sw="Sera ya faragha">Privacy policy</a>
+      <a href="mailto:smarttransit2026@gmail.com">smarttransit2026@gmail.com</a>
+    </nav>
+    <small>© <span id="year">2026</span> TeleTransit · Tanzania</small>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    document.documentElement.classList.add('js');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Language: saved choice, else the browser's, else English.
+    var KEY = 'teletransit_lang';
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    var initial = saved || ((navigator.language || '').toLowerCase().indexOf('sw') === 0 ? 'sw' : 'en');
+
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-' + lang + ']').forEach(function (el) {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.querySelectorAll('[data-' + lang + '-label]').forEach(function (el) {
+        el.setAttribute('aria-label', el.getAttribute('data-' + lang + '-label'));
+      });
+      document.querySelectorAll('.lang button').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+      });
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+    }
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.dataset.lang); });
+    });
+    if (initial !== 'en') setLang(initial);
+
+    // Fade sections in as they scroll into view.
+    var items = document.querySelectorAll('.reveal-on-scroll');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('seen'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
