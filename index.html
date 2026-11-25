@@ -119,8 +119,15 @@
   .btn-play small { display: block; font-weight: 500; font-size: .72rem; opacity: .85; line-height: 1.1; }
   .btn-play strong { display: block; font-size: 1.1rem; line-height: 1.15; }
   .btn-ghost { color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
-  .btn-ghost:hover { border-color: #fff; }
+  .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+  .btn-ghost svg { width: 26px; height: 26px; flex: none; }
+  .btn-ghost small { display: block; font-weight: 500; font-size: .72rem; opacity: .8; line-height: 1.1; }
+  .btn-ghost strong { display: block; font-size: 1.1rem; line-height: 1.15; }
+  .final .btn-ghost { border-color: rgba(255,255,255,.7); }
+  .final .btn-ghost:hover { background: rgba(255,255,255,.15); }
 
+  .ios-note { margin: 22px 0 0; max-width: 34em; font-size: .92rem; color: rgba(255,255,255,.68); }
+  .ios-note a { color: var(--gold); }
   .hero-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 40px; padding: 0; list-style: none; color: rgba(255,255,255,.75); font-size: .95rem; }
   .hero-facts li { display: flex; align-items: center; gap: 8px; }
   .hero-facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(47,174,110,.2); }
@@ -334,13 +341,17 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l.1.1 9.2-9.2v-.6L4.3 2.5l-.1.1Zm12.4 12.8-3.1-3.1v-.6l3.1-3.1.1.1 3.6 2.1c1 .6 1 1.6 0 2.2l-3.6 2.1-.1.3Zm-.1.1L13.4 12l-9.2 9.4c.4.4 1 .4 1.6.1l10.7-6.1m0-6.8L5.8 2.5c-.6-.4-1.2-.3-1.6.1L13.4 12l3.1-3.1Z"/></svg>
             <span><small data-en="Get it on" data-sw="Pakua kwenye">Get it on</small><strong>Google Play</strong></span>
           </a>
-          <a class="btn btn-ghost" href="#how" data-en="How it works" data-sw="Inavyofanya kazi">How it works</a>
+          <a class="btn btn-ghost " href="https://smarttransit128.github.io/teletransit-web/" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.7 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.7-4-9s1.4-6.3 4-9Z"/></svg>
+            <span><small data-en="iPhone &amp; computer" data-sw="iPhone na kompyuta">iPhone &amp; computer</small><strong data-en="Use in browser" data-sw="Tumia kwenye kivinjari">Use in browser</strong></span>
+          </a>
         </div>
         <ul class="hero-facts rise d5">
           <li data-en="Free to post" data-sw="Kutangaza ni bure">Free to post</li>
           <li data-en="Numbers private until both accept" data-sw="Namba ni siri hadi wote wakubali">Numbers private until both accept</li>
           <li data-en="English &amp; Kiswahili" data-sw="Kiingereza na Kiswahili">English &amp; Kiswahili</li>
         </ul>
+        <p class="ios-note rise d5" data-en="On an iPhone? There's no App Store version yet, so open TeleTransit in Safari and use it exactly like the app. <a href='#how'>How it works</a>" data-sw="Una iPhone? Bado haipo App Store, kwa hiyo fungua TeleTransit kwenye Safari uitumie kama programu kamili. <a href='#how'>Inavyofanya kazi</a>">On an iPhone? There's no App Store version yet, so open TeleTransit in Safari and use it exactly like the app. <a href="#how">How it works</a></p>
       </div>
 
       <div class="phone rise d3" role="img" aria-label="Illustration of the TeleTransit app showing available vehicle space between Tanzanian towns" data-en-label="Illustration of the TeleTransit app showing available vehicle space between Tanzanian towns" data-sw-label="Mfano wa programu ya TeleTransit ikionyesha nafasi za magari kati ya miji ya Tanzania">
@@ -453,12 +464,18 @@
     <div class="wrap">
       <div>
         <h2 data-en="Your next load is already on the road." data-sw="Mzigo wako unaofuata uko njiani tayari.">Your next load is already on the road.</h2>
-        <p data-en="Download TeleTransit free on Android." data-sw="Pakua TeleTransit bure kwenye Android.">Download TeleTransit free on Android.</p>
+        <p data-en="Free on Android, and in your browser on iPhone or computer." data-sw="Bure kwenye Android, na kwenye kivinjari cha iPhone au kompyuta.">Free on Android, and in your browser on iPhone or computer.</p>
       </div>
+<div class="cta-row">
       <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=tz.co.smarttransit.smart_transit" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l.1.1 9.2-9.2v-.6L4.3 2.5l-.1.1Zm12.4 12.8-3.1-3.1v-.6l3.1-3.1.1.1 3.6 2.1c1 .6 1 1.6 0 2.2l-3.6 2.1-.1.3Zm-.1.1L13.4 12l-9.2 9.4c.4.4 1 .4 1.6.1l10.7-6.1m0-6.8L5.8 2.5c-.6-.4-1.2-.3-1.6.1L13.4 12l3.1-3.1Z"/></svg>
         <span><small data-en="Get it on" data-sw="Pakua kwenye">Get it on</small><strong>Google Play</strong></span>
       </a>
+      <a class="btn btn-ghost on-orange" href="https://smarttransit128.github.io/teletransit-web/" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 4 5.7 4 9s-1.4 6.3-4 9c-2.6-2.7-4-5.7-4-9s1.4-6.3 4-9Z"/></svg>
+            <span><small data-en="iPhone &amp; computer" data-sw="iPhone na kompyuta">iPhone &amp; computer</small><strong data-en="Use in browser" data-sw="Tumia kwenye kivinjari">Use in browser</strong></span>
+          </a>
+      </div>
     </div>
   </section>
 </main>
